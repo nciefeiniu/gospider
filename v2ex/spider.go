@@ -5,6 +5,7 @@ import (
 	"spider/analysis"
 	"spider/spidercore"
 	"spider/public"
+	"time"
 )
 
 func RunV2ex(url string) {
@@ -12,13 +13,17 @@ func RunV2ex(url string) {
 	content := spidercore.Request("GET", url)
 	if content == "" {
 		fmt.Println("爬取数据为空")
-		return
+		// 睡眠5分钟
+		time.Sleep(time.Duration(300) * time.Second)
+		RunV2ex(url)
 	}
 
 	data, err := analysis.AnalysisHot(content)
 	if err != nil {
 		fmt.Println(err)
-		return
+		// 睡眠5分钟
+		time.Sleep(time.Duration(300) * time.Second)
+		RunV2ex(url)
 	}
 
 	public.Savedata2RD(data, "v2ex")
