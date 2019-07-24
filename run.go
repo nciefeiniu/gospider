@@ -1,16 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"spider/v2ex"
 	"time"
 )
 
-func main() {
+func run(url string, keyName string, ch chan int) {
 	i := 0
 	for {
-		go v2ex.RunV2ex("https://www.v2ex.com/?tab=hot", "v2ex-hot")
-
-		go v2ex.RunV2ex("https://www.v2ex.com/?tab=jobs", "v2ex-jobs")
+		go v2ex.RunV2ex(url, keyName)
 
 		nowTime := time.Now().Hour()
 		if nowTime >= 0 || nowTime < 9 {
@@ -27,6 +26,21 @@ func main() {
 
 		if i > 10 {
 			break
+			ch <- 1
 		}
 	}
+}
+
+func main() {
+	//i := 0
+	//for {
+	ch := make(chan int, 2)
+
+	go run("https://www.v2ex.com/?tab=hot", "v2ex-hot", ch)
+	go run("https://www.v2ex.com/?tab=jobs", "v2ex-jobs", ch)
+
+	for i := 0; i < 2; i++ {
+		<-ch
+	}
+	fmt.Println("over")
 }

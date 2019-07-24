@@ -42,7 +42,7 @@ func Savedata2RD(datas [] map[string]string, keyname string) {
 		cli := Get()
 		defer cli.Close()
 
-		_, err :=cli.Do("SET", "v2ex", jsonData)
+		_, err :=cli.Do("SET", keyname, jsonData)
 		fmt.Println(jsonData)
 
 		if err != nil {
