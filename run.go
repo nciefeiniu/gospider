@@ -8,7 +8,9 @@ import (
 func main() {
 	i := 0
 	for {
-		go v2ex.RunV2ex("https://www.v2ex.com/?tab=hot")
+		go v2ex.RunV2ex("https://www.v2ex.com/?tab=hot", "v2ex-hot")
+
+		go v2ex.RunV2ex("https://www.v2ex.com/?tab=jobs", "v2ex-jobs")
 
 		nowTime := time.Now().Hour()
 		if nowTime >= 0 || nowTime < 9 {
