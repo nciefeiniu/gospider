@@ -2,10 +2,10 @@ package v2ex
 
 import (
 	"fmt"
+	"time"
 	"spider/analysis"
 	"spider/spidercore"
 	"spider/public"
-	"time"
 )
 
 func RunV2ex(url string) {
