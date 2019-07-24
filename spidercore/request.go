@@ -6,8 +6,7 @@ import (
 	"net/http"
 )
 
-//
-func GetRequest(request *http.Request) (string, error) {
+func getRequest(request *http.Request) (string, error) {
 	client := &http.Client{}
 
 	res, err := client.Do(request)
@@ -27,4 +26,24 @@ func GetRequest(request *http.Request) (string, error) {
 	}
 
 	return string(content), nil
+}
+
+func Request(reqType string, url string) string {
+
+	if reqType == "GET" {
+		request, err := BuildGetHeaders(url)
+		if err != nil {
+			fmt.Println("GET request error", err)
+		}
+
+		content, err := getRequest(request)
+		if err != nil {
+			fmt.Println("getRequest error", err)
+		}
+
+		return content
+	}
+
+	return ""
+
 }
