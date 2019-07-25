@@ -12,6 +12,9 @@ func clearRedisKey(key string) {
 }
 
 func data2Json(data []map[string]string) string {
+	if data == nil {
+		return ""
+	}
 	mjson, err := json.Marshal(data)
 	if err != nil {
 		fmt.Println(err, "json.Marshal error")
